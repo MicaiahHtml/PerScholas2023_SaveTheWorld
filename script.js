@@ -1,5 +1,7 @@
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 }
 
 class EnemySpaceShip{
@@ -36,7 +38,7 @@ class Player{
 
 let enemyShips = [];
 let player = new Player(20, 5, .7);
-for(let i = 0; i < 6; i++) enemyShips.push(new EnemySpaceShip(4, 3, .7));
+for(let i = 0; i < 6; i++) enemyShips.push(new EnemySpaceShip(getRandomInt(3,7), 3, getRandomInt(6,9)/10));
 
 // To access a ship: enemyShips[number]
 
