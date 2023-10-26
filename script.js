@@ -1,8 +1,9 @@
 function getRandomInt(min, max) {
     //BY RANI
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+    // min = Math.ceil(min);
+    // max = Math.floor(max);
+    // removed the Math.floor
+    return (Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 }
 
 class EnemySpaceShip{
@@ -33,6 +34,9 @@ class Player{
     }
     die(){
         //somebody does this
+    }
+    retreat(){
+        
     }
 }
 
