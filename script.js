@@ -48,10 +48,9 @@ class Player{
     }
     retreat(){
         //Sarah
+        //If you retreat, the game is over, perhaps leaving the game open for further developments or options
     }
-    retreat(){
-        
-    }
+
 }
 
 // Setting up all of the classes needed for the game.
@@ -60,22 +59,56 @@ class Player{
 //Player.hull, Player.firepower, etc.
 //Enemy(hull, firepower, accuracy)
 
+// To access an enemy ship: enemyShips[number]
+// To access an enemy ship that is being fought right now: enemyShips[currentEnemy]
+
 let enemyShips = [];
 let player = new Player();
 for(let i = 0; i < 6; i++) enemyShips.push(new EnemySpaceShip(getRandomInt(3,6), 3, getRandomInt(6,8)/10));
-let textDisplay = document.querySelector("#mainText");
-// To access a ship: enemyShips[number]
+
+//MICAIAH'S GAMELOOP VARIABLES
+let mainText = document.querySelector("#mainText");
+let atkBtn = document.querySelector("#attackButton");
+let retreatBtn = document.querySelector('#retreatButton');
+let pressedAttack = false;
+let pressedRetreat = false;
+let currentEnemy = 0; 
+
 
 function gameLoop(){
+    if(pressedAttack){
+        pressedAttack = false; //turns it back off so we can press it again
+        player.attack(enemyShips[currentEnemy]);
+        if(enemyShips[currentEnemy].hull <= 0){
+            enemyShips[currentEnemy].die();
+            currentEnemy++;
+        }else{
+            enemyShips[currentEnemy].attack();
+        }
+    }else if(pressedRetreat){
+        pressedRetreat = false; //turns it back off so we can press it again
+        player.retreat(); 
+    }
+    if(enemyShips.length <= 0){
+        console.log("game over win"); //change this later
+        clearInterval(gameLoop);
+    }
+    if(player.hull <= 0){
+        player.die();
+        console.log("game over lose"); //change this later
+        clearInterval(gameLoop);
+    }
     //Micaiah
-    for(let x of enemyShips){
         //You attack the first alien ship
         //If the ship survives, it attacks you
         //If you survive, you attack the ship again
         //If it survives, it attacks you again ... etc
         //If you destroy the ship, you have the option to attack the next ship or to retreat
-        //If you retreat, the game is over, perhaps leaving the game open for further developments or options
         //You win the game if you destroy all of the aliens
         //You lose the game if you are destroyed
-    }
 }
+
+atkBtn.addEventListener("click", function(){pressedAttack = true;});
+retreatBtn.addEventListener("click", function(){pressedRetreat = true;});
+//IMPORTANT - This is so our game is always checking for things and running.
+gameInterval = setInterval(gameLoop, 0.2); 
