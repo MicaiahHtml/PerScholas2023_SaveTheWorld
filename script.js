@@ -1,10 +1,15 @@
+//function to generate a random number btn 0.6 and 0.8
 function getRandomInt(min, max) {
     //BY RANI
-    // min = Math.ceil(min);
-    // max = Math.floor(max);
+    min = Math.ceil(min);
+     max = Math.floor(max);
     // removed the Math.floor
-    return (Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+    return(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+    
 }
+const randAccuracy = getRandomInt(6, 8)
+
+// console.log(dec)
 
 class EnemySpaceShip{
     constructor(hull, firepower, accuracy){
@@ -23,12 +28,18 @@ class EnemySpaceShip{
 }
 
 class Player{
-    constructor(hull, firepower, accuracy){
-        this.hull = hull;
-        this.firepower = firepower;
-        this.accuracy = accuracy;
+    constructor(){
+        this.hull = 20;
+        this.firepower = 5;
+        this.accuracy = 0.7;
     }
-    attack(){
+    //
+    attack(target){
+        if (Math.random() < this.accuracy){
+            target.hull -=this.firepower;
+            return [true, this.firepower] //hit
+
+        } else return false //miss the target
         //Rani
         // Make sure to program in an if statement checking if you miss or not
     }
@@ -50,7 +61,7 @@ class Player{
 //Enemy(hull, firepower, accuracy)
 
 let enemyShips = [];
-let player = new Player(20, 5, .7);
+let player = new Player();
 for(let i = 0; i < 6; i++) enemyShips.push(new EnemySpaceShip(getRandomInt(3,6), 3, getRandomInt(6,8)/10));
 let textDisplay = document.querySelector("#mainText");
 // To access a ship: enemyShips[number]
