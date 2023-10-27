@@ -123,4 +123,4 @@ function gameLoop(){
 atkBtn.addEventListener("click", function(){pressedAttack = true;});
 retreatBtn.addEventListener("click", function(){pressedRetreat = true;});
 //IMPORTANT - This is so our game is always checking for things and running.
-gameInterval = setInterval(gameLoop, 0.2); 
+gameInterval = setInterval(gameLoop, 200); 
