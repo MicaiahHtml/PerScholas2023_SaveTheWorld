@@ -5,7 +5,7 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     // removed the Math.floor
     let num =  Math.random() * (max - min) + min; // The maximum is exclusive and the minimum is inclusive
-  return (num.toFixed(3));
+  return Number(num.toFixed(3));
 }
 
 function changeGameText(text, add = false){
@@ -107,12 +107,18 @@ function gameLoop(){
             if(!enemyOuch){
                 changeGameText("<br> Your ship attacked... and missed!", true);
             }else{
-                changeGameText(`<br>Your ship attacked and dealt ${enemyOuch[1]} damage. The enemy has ${enemyShips[currentEnemy].hull} hull left.`, true);
+                changeGameText(`<br>Your ship attacked and dealt ${enemyOuch[1]} damage. The enemy has ${enemyShips[currentEnemy].hull.toFixed(3)} hull left.`, true);
             }
             if(enemyShips[currentEnemy].hull <= 0){
                 // enemyShips[currentEnemy].die();
                 changeGameText(`<br> You beat enemy #${currentEnemy+1}! ${5-currentEnemy} left.`, true);
                 currentEnemy++;
+                if(currentEnemy > 5){
+                    changeGameText("<br> All ships are defeated! You win!", true); //change this later
+                    clearInterval(gameInterval);
+                    isCurrentBattleGoing = false;
+                    break;
+                }
                 changeGameText(`<br> Another ship appears! What do you do?`, true);
                 isCurrentBattleGoing = false;
                 break;
@@ -138,10 +144,7 @@ function gameLoop(){
         pressedRetreat = false; //turns it back off so we can press it again
         player.retreat(); 
     }
-    if(currentEnemy > 5){
-        changeGameText("<br> All ships are defeated! You win!", true); //change this later
-        clearInterval(gameInterval);
-    }
+    
 
         //You attack the first alien ship
         //If the ship survives, it attacks you
