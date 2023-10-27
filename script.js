@@ -5,7 +5,7 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     // removed the Math.floor
     let num =  Math.random() * (max - min) + min; // The maximum is exclusive and the minimum is inclusive
-  return Number(num.toFixed(3));
+  return num.toPrecision(3);
 }
 
 function changeGameText(text, add = false){
