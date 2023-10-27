@@ -57,7 +57,11 @@ class Player{
         console.log("You Loose!")
     }
     retreat(){
-        //Sarah
+        //Rani
+
+        clearInterval(gameInterval);
+        console.log("You Loose!")
+        console.log("Play Again?")
         //If you retreat, the game is over, perhaps leaving the game open for further developments or options
         
     }
