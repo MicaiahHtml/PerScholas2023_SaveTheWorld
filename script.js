@@ -4,8 +4,8 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
      max = Math.floor(max);
     // removed the Math.floor
-    return(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-    
+    let num =  Math.random() * (max - min) + min; // The maximum is exclusive and the minimum is inclusive
+  return (num.toFixed(3));
 }
 
 
