@@ -67,7 +67,7 @@ class Player{
         //Rani
 
         clearInterval(gameInterval);
-        changeGameText("You Loose! Play Again?");
+        changeGameText("You Lose! Play Again?", true);
         //If you retreat, the game is over, perhaps leaving the game open for further developments or options
         
     }
@@ -134,7 +134,7 @@ function gameLoop(){
             }
         }
     }else if(pressedRetreat){
-        console.log("You chose to retreat. <br>");
+        changeGameText("You chose to retreat. <br>");
         pressedRetreat = false; //turns it back off so we can press it again
         player.retreat(); 
     }
