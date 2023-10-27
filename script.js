@@ -4,8 +4,8 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
      max = Math.floor(max);
     // removed the Math.floor
-    return(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-    
+    let num =  Math.random() * (max - min) + min; // The maximum is exclusive and the minimum is inclusive
+  return (num.toFixed(3));
 }
 
 
@@ -26,10 +26,10 @@ class EnemySpaceShip{
     }
 
 
-    die(){
-        //Rani
-        return  this.hull <= 0 
-    }
+    // die(){
+    //     //Rani
+    //     return  this.hull <= 0 
+    // }
 
 }
 
@@ -50,14 +50,18 @@ class Player{
         //Rani
         // Make sure to program in an if statement checking if you miss or not
     }
-    die(){
-        //Rani
-        // return this.hull <= 0
+    // die(){
+    //     //Rani
+    //     // return this.hull <= 0
 
-        console.log("You Loose!")
-    }
+    //     console.log("You Loose!")
+    // }
     retreat(){
-        //Sarah
+        //Rani
+
+        clearInterval(gameInterval);
+        console.log("You Loose!")
+        console.log("Play Again?")
         //If you retreat, the game is over, perhaps leaving the game open for further developments or options
         
     }
@@ -98,7 +102,7 @@ function gameLoop(){
             console.log(`Your ship attacked and took ${enemyOuch[1]} damage. The enemy has ${enemyShips[currentEnemy].hull} hull left.`);
         }
         if(enemyShips[currentEnemy].hull <= 0){
-            enemyShips[currentEnemy].die();
+            // enemyShips[currentEnemy].die();
             console.log(`You beat enemy #${currentEnemy+1}! ${5-currentEnemy} left.`);
             currentEnemy++;
             console.log(`Another ship appears! What do you do?`);
@@ -121,7 +125,7 @@ function gameLoop(){
         clearInterval(gameInterval);
     }
     if(player.hull <= 0){
-        player.die();
+        //player.die();
         console.log("Your ship blew into smithereens. The world is gone! Game over."); //change this later
         clearInterval(gameInterval);
     }
