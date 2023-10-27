@@ -57,9 +57,9 @@ class Player{
         console.log("You Loose!")
     }
     retreat(){
-        //Rani
-        console.log("Retreat")
+        //Sarah
         //If you retreat, the game is over, perhaps leaving the game open for further developments or options
+        
     }
 
 }
