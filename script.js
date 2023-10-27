@@ -2,13 +2,20 @@
 function getRandomInt(min, max) {
     //BY RANI
     min = Math.ceil(min);
-     max = Math.floor(max);
+    max = Math.floor(max);
     // removed the Math.floor
     let num =  Math.random() * (max - min) + min; // The maximum is exclusive and the minimum is inclusive
   return (num.toFixed(3));
 }
 
-
+function changeGameText(text, add = false){
+    //By Micaiah
+    if(add){
+        document.querySelector("#gameText").innerHTML += text;
+    }else{
+        document.querySelector("#gameText").innerHTML = text;
+    }
+}
 class EnemySpaceShip{
     constructor(hull, firepower, accuracy){
         this.hull = hull;
@@ -60,8 +67,7 @@ class Player{
         //Rani
 
         clearInterval(gameInterval);
-        console.log("You Loose!")
-        console.log("Play Again?")
+        changeGameText("You Loose! Play Again?");
         //If you retreat, the game is over, perhaps leaving the game open for further developments or options
         
     }
@@ -82,7 +88,6 @@ let player = new Player();
 for(let i = 0; i < 6; i++) enemyShips.push(new EnemySpaceShip(getRandomInt(3,6), 3, getRandomInt(6,8)/10));
 
 //MICAIAH'S GAMELOOP VARIABLES
-let mainText = document.querySelector("#mainText");
 let atkBtn = document.querySelector("#attackButton");
 let retreatBtn = document.querySelector('#retreatButton');
 let pressedAttack = false;
@@ -92,44 +97,52 @@ var gameInterval;
 
 console.log("Aliens are trying to take over the world! Here's the first one; what do you do?");
 function gameLoop(){
+        //Micaiah
     if(pressedAttack){
         pressedAttack = false; //turns it back off so we can press it again
-        console.log("You chose to attack!")
-        const enemyOuch = player.attack(enemyShips[currentEnemy]);
-        if(!enemyOuch){
-            console.log("Your ship attacked... and missed!");
-        }else{
-            console.log(`Your ship attacked and took ${enemyOuch[1]} damage. The enemy has ${enemyShips[currentEnemy].hull} hull left.`);
-        }
-        if(enemyShips[currentEnemy].hull <= 0){
-            // enemyShips[currentEnemy].die();
-            console.log(`You beat enemy #${currentEnemy+1}! ${5-currentEnemy} left.`);
-            currentEnemy++;
-            console.log(`Another ship appears! What do you do?`);
-        }else{
-            const playerOuch = enemyShips[currentEnemy].attack(player);
-            if(!playerOuch){
-                console.log("The enemy ship attacked... and missed!");
+        changeGameText("You chose to take on this next ship!");
+        let isCurrentBattleGoing = true;
+        while(isCurrentBattleGoing){
+            const enemyOuch = player.attack(enemyShips[currentEnemy]);
+            if(!enemyOuch){
+                changeGameText("<br> Your ship attacked... and missed!", true);
             }else{
-                console.log(`The enemy ship attacked and took ${playerOuch[1]} damage. You have ${player.hull} hull left on your ship.`);
-                console.log("What do you do?");
+                changeGameText(`<br>Your ship attacked and dealt ${enemyOuch[1]} damage. The enemy has ${enemyShips[currentEnemy].hull} hull left.`, true);
+            }
+            if(enemyShips[currentEnemy].hull <= 0){
+                // enemyShips[currentEnemy].die();
+                changeGameText(`<br> You beat enemy #${currentEnemy+1}! ${5-currentEnemy} left.`, true);
+                currentEnemy++;
+                changeGameText(`<br> Another ship appears! What do you do?`, true);
+                isCurrentBattleGoing = false;
+                break;
+            }else if(player.hull <= 0){
+                //player.die();
+                changeGameText("<br><br> Your ship blew into smithereens. The world is gone! <br> Game over.", true);
+                isCurrentBattleGoing = false;
+                clearInterval(gameInterval);
+                break;
+
+            }else{
+                const playerOuch = enemyShips[currentEnemy].attack(player);
+                if(!playerOuch){
+                    changeGameText("<br> The enemy ship attacked... and missed!", true);
+                }else{
+                    changeGameText(`<br> The enemy ship attacked and dealt ${playerOuch[1]} damage. You have ${player.hull} hull left on your ship.`, true);
+                    //console.log("What do you do?");
+                }
             }
         }
     }else if(pressedRetreat){
-        console.log("You chose to retreat.");
+        console.log("You chose to retreat. <br>");
         pressedRetreat = false; //turns it back off so we can press it again
         player.retreat(); 
     }
     if(currentEnemy > 5){
-        console.log("All ships are defeated! You win!"); //change this later
+        changeGameText("<br> All ships are defeated! You win!", true); //change this later
         clearInterval(gameInterval);
     }
-    if(player.hull <= 0){
-        //player.die();
-        console.log("Your ship blew into smithereens. The world is gone! Game over."); //change this later
-        clearInterval(gameInterval);
-    }
-    //Micaiah
+
         //You attack the first alien ship
         //If the ship survives, it attacks you
         //If you survive, you attack the ship again
