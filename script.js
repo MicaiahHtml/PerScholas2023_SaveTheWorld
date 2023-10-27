@@ -26,10 +26,10 @@ class EnemySpaceShip{
     }
 
 
-    die(){
-        //Rani
-        return  this.hull <= 0 
-    }
+    // die(){
+    //     //Rani
+    //     return  this.hull <= 0 
+    // }
 
 }
 
@@ -50,12 +50,12 @@ class Player{
         //Rani
         // Make sure to program in an if statement checking if you miss or not
     }
-    die(){
-        //Rani
-        // return this.hull <= 0
+    // die(){
+    //     //Rani
+    //     // return this.hull <= 0
 
-        console.log("You Loose!")
-    }
+    //     console.log("You Loose!")
+    // }
     retreat(){
         //Rani
 
@@ -102,7 +102,7 @@ function gameLoop(){
             console.log(`Your ship attacked and took ${enemyOuch[1]} damage. The enemy has ${enemyShips[currentEnemy].hull} hull left.`);
         }
         if(enemyShips[currentEnemy].hull <= 0){
-            enemyShips[currentEnemy].die();
+            // enemyShips[currentEnemy].die();
             console.log(`You beat enemy #${currentEnemy+1}! ${5-currentEnemy} left.`);
             currentEnemy++;
             console.log(`Another ship appears! What do you do?`);
@@ -125,7 +125,7 @@ function gameLoop(){
         clearInterval(gameInterval);
     }
     if(player.hull <= 0){
-        player.die();
+        //player.die();
         console.log("Your ship blew into smithereens. The world is gone! Game over."); //change this later
         clearInterval(gameInterval);
     }
