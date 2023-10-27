@@ -7,9 +7,7 @@ function getRandomInt(min, max) {
     return(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
     
 }
-const randAccuracy = getRandomInt(6, 8)
 
-// console.log(dec)
 
 class EnemySpaceShip{
     constructor(hull, firepower, accuracy){
@@ -17,12 +15,20 @@ class EnemySpaceShip{
         this.firepower = firepower;
         this.accuracy = accuracy;
     }
-    attack(){
+    attack(target){
         //Rani
         // Make sure to program in an if statement checking if you miss or not
+        if (Math.random() < this.accuracy){
+            target.hull -=this.firepower;
+            return true //hit
+
+        } else return false //miss the target
     }
+
+
     die(){
         //Rani
+        return  this.hull <= 0 
     }
 
 }
@@ -39,15 +45,20 @@ class Player{
             target.hull -=this.firepower;
             return [true, this.firepower] //hit
 
-        } else return false //miss the target
+        }  
+        return false //miss the target
         //Rani
         // Make sure to program in an if statement checking if you miss or not
     }
     die(){
         //Rani
+        // return this.hull <= 0
+
+        console.log("You Loose!")
     }
     retreat(){
-        //Sarah
+        //Rani
+        console.log("Retreat")
         //If you retreat, the game is over, perhaps leaving the game open for further developments or options
     }
 
