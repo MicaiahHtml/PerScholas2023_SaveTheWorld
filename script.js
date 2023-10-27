@@ -95,7 +95,7 @@ let pressedRetreat = false;
 let currentEnemy = 0; 
 var gameInterval;
 
-console.log("Aliens are trying to take over the world! Here's the first one; what do you do?");
+changeGameText("Aliens are trying to take over the world! Here's the first one; what do you do?");
 function gameLoop(){
         //Micaiah
     if(pressedAttack){
