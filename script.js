@@ -20,7 +20,7 @@ class EnemySpaceShip{
         // Make sure to program in an if statement checking if you miss or not
         if (Math.random() < this.accuracy){
             target.hull -=this.firepower;
-            return true //hit
+            return [true, this.firepower] //hit
 
         } else return false //miss the target
     }
@@ -84,31 +84,46 @@ let retreatBtn = document.querySelector('#retreatButton');
 let pressedAttack = false;
 let pressedRetreat = false;
 let currentEnemy = 0; 
-let gameInterval;
+var gameInterval;
 
-
+console.log("Aliens are trying to take over the world! Here's the first one; what do you do?");
 function gameLoop(){
     if(pressedAttack){
         pressedAttack = false; //turns it back off so we can press it again
-        player.attack(enemyShips[currentEnemy]);
+        console.log("You chose to attack!")
+        const enemyOuch = player.attack(enemyShips[currentEnemy]);
+        if(!enemyOuch){
+            console.log("Your ship attacked... and missed!");
+        }else{
+            console.log(`Your ship attacked and took ${enemyOuch[1]} damage. The enemy has ${enemyShips[currentEnemy].hull} hull left.`);
+        }
         if(enemyShips[currentEnemy].hull <= 0){
             enemyShips[currentEnemy].die();
+            console.log(`You beat enemy #${currentEnemy+1}! ${5-currentEnemy} left.`);
             currentEnemy++;
+            console.log(`Another ship appears! What do you do?`);
         }else{
-            enemyShips[currentEnemy].attack();
+            const playerOuch = enemyShips[currentEnemy].attack(player);
+            if(!playerOuch){
+                console.log("The enemy ship attacked... and missed!");
+            }else{
+                console.log(`The enemy ship attacked and took ${playerOuch[1]} damage. You have ${player.hull} hull left on your ship.`);
+                console.log("What do you do?");
+            }
         }
     }else if(pressedRetreat){
+        console.log("You chose to retreat.");
         pressedRetreat = false; //turns it back off so we can press it again
         player.retreat(); 
     }
-    if(enemyShips.length <= 0){
-        console.log("game over win"); //change this later
-        clearInterval(gameLoop);
+    if(currentEnemy > 5){
+        console.log("All ships are defeated! You win!"); //change this later
+        clearInterval(gameInterval);
     }
     if(player.hull <= 0){
         player.die();
-        console.log("game over lose"); //change this later
-        clearInterval(gameLoop);
+        console.log("Your ship blew into smithereens. The world is gone! Game over."); //change this later
+        clearInterval(gameInterval);
     }
     //Micaiah
         //You attack the first alien ship
