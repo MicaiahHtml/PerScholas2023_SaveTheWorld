@@ -73,6 +73,7 @@ let retreatBtn = document.querySelector('#retreatButton');
 let pressedAttack = false;
 let pressedRetreat = false;
 let currentEnemy = 0; 
+let gameInterval;
 
 
 function gameLoop(){
